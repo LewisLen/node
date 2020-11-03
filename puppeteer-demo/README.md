@@ -15,9 +15,9 @@ npm i puppeteer --save --registry=https://registry.npm.taobao.org
 npm i puppeteer-core --save --registry=https://registry.npm.taobao.org
 ```
 
-## 截取网页图片demo
+## 截取网页图片
 
-主要是利用page方法，创建文件夹使用 promisify 封装 fs.mkdir 方法返回promise对象，这样才能使用async/await方法
+screenshot.js 主要是利用page方法，创建文件夹使用 promisify 封装 fs.mkdir 方法返回promise对象，这样才能使用async/await方法
 
 ```javascript
 // const puppeteer = require('puppeteer');
@@ -52,3 +52,9 @@ const fsPromises = require('fs/promises');
 ```
 
 ## 通过网易云音乐保存歌词
+
+getLyrics.js  
+
+## 截取网页图片——screenshot
+
+baiduimage.js  
