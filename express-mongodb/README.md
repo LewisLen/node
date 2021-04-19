@@ -88,9 +88,9 @@ Txu.findProductType(function(err,Txu){
 安装mongodb之后就可以进行操作了，可以将安装目录bin的路径配置到path路径上，也可以直接在bin目录下启动cmd操作
 
 ```shell
-# 切换到安装目录下
 mongod --dbpath E:\mongoLen\data --logpath E:\mongoLen\log\mongo.log
 # 用配置文件启动
+# 切换到安装目录下
 mongod --config E:\mongoLen\mongo.conf
 # 配置server
 mongod --config E:\mongoLen\mongo.conf --install --serviceName "mongoDB"
@@ -109,7 +109,7 @@ logpath=E:\mongoLen\log\mongo.log
 logappend=false
 # 启用日志文件，默认启用
 journal=true
-这个选项可以过滤掉一些无用的日志信息
+# 这个选项可以过滤掉一些无用的日志信息
 quiet=false
 # 端口号
 # port=27017
