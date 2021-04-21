@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
+// Schema是一种以文件形式存储的数据库模型骨架，不具备数据库的操作能力。可以看成是表结构的定义
 const Schema = mongoose.Schema;
 
-
 // 链接数据库
-mongoose.connect('mongodb://localhost:27017/films');
-const db = mongoose.connection;
+// mongoose.connect('mongodb://localhost:27017/films');
+// const db = mongoose.connection;
+const db = mongoose.createConnection('mongodb://localhost:27017/films',{ useNewUrlParser: true,useUnifiedTopology: true });
+
 // 链接成功
 db.on('connected',() => {
   console.log("Mongoose connection open to " + 'mongodb://localhost:27017/films');
@@ -18,57 +20,45 @@ db.on('disconnected',() => {
   console.log('Mongoose connection disconnected');
 })
 
-const moviesSchema = new Schema({
-  // rate: String,
-  // cover_x: Number,
-  // title: String,
-  // url: String,
-  // playable: Boolean,
-  // cover: String,
-  // id: String,
-  // cover_y: Number,
-  // is_new: Boolean
-  testName: String
-})
+// 创建schema
+const moviesSchema = new Schema(
+  {
 
-// model实例有自带方法，也可以添加方法
-// moviesSchema.methods.findMovie = function(cb){
-//   return this.model('movies').find({},cb)
-// }
+    episodes_info: {type: String},
+    rate: {type: String},
+    cover_x: {type: Number},
+    title: {type: String},
+    url: {type: String},
+    playable: {type: Boolean},
+    cover: {type: String},
+    id: {type: String},
+    cover_y: {type: Number},
+    is_new: {type: Boolean}
+  }
+)
 
 // 创建model
-const movies = mongoose.model('movies',moviesSchema);
-// 如果Documents创建的时候没有's'，如product，则需要在参数
+const moviesModel = db.model('movies',moviesSchema);
+// 如果Documents创建的时候没有's'，如product，则需要在参数中做个映射
 // const movies = mongoose.model('prodcts',moviesSchema,'product');
 
+// model实例有自带方法，也可以添加方法
+moviesSchema.methods.findMovie = function(cb){
+  return this.model('movies').find({},cb)
+}
+
 // 实例化movies
-// const yaoShen = new movies({
-//   id: '26752088'
-// });
-
-// movies.findMovie(function (err, yaoShen) {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log(yaoShen);
-//   }
-// });
-movies.find({},(err,doc) => {
-  if(err) console.log(err);
-  console.log('数据=========')
-  console.log(doc)
-})
-
-module.exports = movies;
-
+// const movies = new moviesModel();
 // {
-//   "rate" : "9.0",
-//   "cover_x" : 2810,
-//   "title" : "我不是药神",
-//   "url" : "https://movie.douban.com/subject/26752088/",
-//   "playable" : true,
-//   "cover" : "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2561305376.jpg",
-//   "id" : "26752088",
-//   "cover_y" : 3937,
-//   "is_new" : false
-// }, 
+//   id: '34865507'
+// }
+
+// console.log(movies);
+
+// movies.findMovie({},(err,doc) => {
+//   if(err) console.log(err);
+//   console.log('数据=========')
+//   console.log(doc)
+// })
+
+module.exports = moviesModel;

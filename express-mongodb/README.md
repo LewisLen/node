@@ -150,6 +150,25 @@ db.product.drop()
 > 导入json文件时主要要加`--jsonArray`参数
 > 导入json文件的时候不用直接在运行mongo的命令行工具上导入，应另起命令行工具
 
+
+## mongo问题集合
+
+```shell
+DeprecationWarning: current URL string parser is deprecated, and will be removed in a future version. To use the new parser, pass option { useNewUrlParser: true } to MongoClient.connect.
+
+DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+```
+
+在创建链接数据库时，新增`{ useNewUrlParser: true }`属性即可
+
+```javascript
+const db = mongoose.createConnection('mongodb://localhost:27017/product',{ useNewUrlParser: true,useUnifiedTopology: true });
+```
+
+
+
+
+
 ## cookie
 
 ### cookie-parser

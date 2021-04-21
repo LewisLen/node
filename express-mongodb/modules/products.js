@@ -2,8 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // 链接数据库
-mongoose.connect('mongodb://localhost:27017/product');
-const db = mongoose.connection;
+// mongoose.connect('mongodb://localhost:27017/product');
+// const db = mongoose.connection;
+const db = mongoose.createConnection('mongodb://localhost:27017/product',{ useNewUrlParser: true,useUnifiedTopology: true });
+
 // 链接成功
 db.on('connected',() => {
   console.log("Mongoose connection open to " + 'mongodb://localhost:27017/product');
@@ -31,20 +33,20 @@ productsSchema.methods.findProductType = function(cb){
 }
 
 // 创建model
-const products = mongoose.model('products',productsSchema);
+const products = db.model('products',productsSchema);
 // 如果Documents创建的时候没有's'，如product，则需要在参数
 // const products = mongoose.model('prodcts',productsSchema,'product');
 
 // 实例化products
-const Txu = new products({
-  typeId: '4'
-});
-Txu.findProductType(function (err, Txu) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(Txu);
-  }
-});
+// const Txu = new products({
+//   typeId: '4'
+// });
+// Txu.findProductType(function (err, Txu) {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     // console.log(Txu);
+//   }
+// });
 
 module.exports = products;
